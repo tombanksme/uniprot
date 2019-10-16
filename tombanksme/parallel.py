@@ -56,8 +56,6 @@ class Parallel:
 
         return data
 
-# IDEA: Advanced thread class for getting data from t.join
-
 class AdvancedThread (Thread):
 
     def __init__ ( self, group=None, target=None, name=None, args=(),
