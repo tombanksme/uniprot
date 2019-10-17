@@ -1,10 +1,12 @@
 import os
 
+from tombanksme.serialize import Serialize
 from tombanksme.filesystem import Filesystem
 
 class Cache:
 
     def __init__ ( self ):
+        self.serialize  = Serialize ()
         self.filesystem = Filesystem ()
 
     def get ( self ):
@@ -15,9 +17,9 @@ class Cache:
 
         os.mkdir ( '.uniplot' )
 
-        for x , data in enumerate ( self.batch ( records , 10000 ) ):
-            self.filesystem.write (
-                ".uniplot/group-{0}.fasta".format ( x ) , data )
+        for x , data in enumerate ( self.batch ( records , 1000 ) ):
+            self.serialize.dump (
+                data , ".uniplot/group-{0}.pickle".format ( x ) )
     
     def batch ( self , itter , size ):
         entry = True
@@ -35,7 +37,7 @@ class Cache:
                     break
                 
                 data.append ( entry )
-
+            
             if data:
                 yield data
 

@@ -5,15 +5,18 @@ from functools import reduce
 from tombanksme.cache import Cache
 from tombanksme.parallel import Parallel
 
-location = "uniprot.fasta.gz"
+location = "uniprot.large.xml.gz"
 
-def length ( parallel ):
-    return len (
-        parallel.execute ( lambda a : 1 ) )
+def count ( parallel ):
+    data = parallel.execute ( lambda a : 1 )
+
+    return len ( data )
+
+# Thread Count: 17s
 
 def average_length ( parallel ):
     data = parallel.execute (
-        lambda a : len ( a.seq ) )
+        lambda a : len ( a.seq ) , count=10 )
 
     return math.floor (
         reduce (
@@ -25,10 +28,13 @@ cache = Cache ()
 
 if not cache.exists ():
     print ( "Building cache for: {0}".format ( location ) )
+
     cache.build ( location )
 
-# Execute the average length query
+    print ( "Successfully generated cache" )
+
+# Begin parallel threads and count
 
 parallel = Parallel ()
 
-print ( length ( parallel ) )
+print ( average_length ( parallel ) )

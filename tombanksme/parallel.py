@@ -2,20 +2,21 @@ import queue
 
 from tombanksme.cache import Cache
 from tombanksme.filesystem import Filesystem
+from tombanksme.serialize import Serialize
 
 from threading import Thread
 
 class Parallel:
 
     def __init__ ( self ):
-        self.cache      =   Cache ()
-        self.filesystem =   Filesystem ()
+        self.cache      = Cache ()
+        self.serialize  = Serialize ()
 
     def worker ( self , q , func ):
         data = []
 
         while not q.empty ():
-            for record in self.filesystem.read ( '.uniplot/' + q.get () ):
+            for record in self.serialize.load ( '.uniplot/' + q.get () ):
                 data.append ( func ( record ) )
 
             q.task_done ()
