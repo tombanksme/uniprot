@@ -1,6 +1,7 @@
 Data Performance:
 
-Uniprot Small: 146.0 mb => 451.9 mb
+Uniprot Small   :   146.0 mb => 451.9 mb
+Uniprot Large   :   758.1 mb => 
 
 Thread Performance:
 

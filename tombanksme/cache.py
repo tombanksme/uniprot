@@ -17,7 +17,7 @@ class Cache:
 
         os.mkdir ( '.uniplot' )
 
-        for x , data in enumerate ( self.batch ( records , 1000 ) ):
+        for x , data in enumerate ( self.batch ( records , 5000 ) ):
             self.serialize.dump (
                 data , ".uniplot/group-{0}.pickle".format ( x ) )
     

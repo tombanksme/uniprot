@@ -5,7 +5,7 @@ from functools import reduce
 from tombanksme.cache import Cache
 from tombanksme.parallel import Parallel
 
-location = "uniprot.large.xml.gz"
+location = "uniprot.small.xml.gz"
 
 def count ( parallel ):
     data = parallel.execute ( lambda a : 1 )
@@ -16,11 +16,10 @@ def count ( parallel ):
 
 def average_length ( parallel ):
     data = parallel.execute (
-        lambda a : len ( a.seq ) , count=10 )
+        lambda a : len ( a.seq ) , count=5 )
 
-    return math.floor (
-        reduce (
-            lambda a,b: a+b , data ) / len ( data ) )
+    return reduce (
+        lambda a,b: a+b , data ) / len ( data )
     
 # If no cache exists build one
 

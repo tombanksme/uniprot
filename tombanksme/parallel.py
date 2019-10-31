@@ -16,6 +16,8 @@ class Parallel:
         data = []
 
         while not q.empty ():
+            print ( "Job's Left: {0}".format ( q.qsize () ) )
+            
             for record in self.serialize.load ( '.uniplot/' + q.get () ):
                 data.append ( func ( record ) )
 
@@ -23,7 +25,7 @@ class Parallel:
 
         return data
 
-    def execute ( self , func , count=5 ):
+    def execute ( self , func , count=10 ):
         q = queue.Queue ()
 
         # Get the cache groups
